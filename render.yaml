@@ -1,0 +1,33 @@
+# render.yaml — one-click deploy for the RICHBAYY Express API on Render.
+# Create a new "Blueprint" on Render pointing at this repo. Set the secret env
+# vars (MONGO_URI, JWT_SECRET, IMAGEKIT_*) in the Render dashboard.
+services:
+  - type: web
+    name: richbayy-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CLIENT_URL
+        sync: false        # e.g. https://richbayy.vercel.app
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRE
+        value: 30d
+      - key: COOKIE_NAME
+        value: richbayy_token
+      - key: IMAGEKIT_PUBLIC_KEY
+        sync: false
+      - key: IMAGEKIT_PRIVATE_KEY
+        sync: false
+      - key: IMAGEKIT_URL_ENDPOINT
+        sync: false
