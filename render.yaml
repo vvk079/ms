@@ -25,6 +25,25 @@ services:
         value: 30d
       - key: COOKIE_NAME
         value: richbayy_token
+
+      # Firebase Phone Auth — the customer sign-in path. Without ONE of these
+      # (or SMS_PROVIDER below) the server refuses to boot in production, since
+      # nobody would be able to sign in. Paste from the service-account JSON:
+      # Firebase console → Project settings → Service accounts.
+      - key: FIREBASE_PROJECT_ID
+        sync: false        # e.g. richbayy-97465
+      - key: FIREBASE_CLIENT_EMAIL
+        sync: false        # firebase-adminsdk-xxx@<project>.iam.gserviceaccount.com
+      - key: FIREBASE_PRIVATE_KEY
+        sync: false        # paste the whole key INCLUDING the \n escapes
+
+      # Fallback SMS gateway — only needed if you're not using Firebase.
+      - key: SMS_PROVIDER
+        sync: false
+
+      # Leave false until a real payment gateway is verified (COD only).
+      - key: PAYMENTS_ENABLED
+        value: false
       - key: IMAGEKIT_PUBLIC_KEY
         sync: false
       - key: IMAGEKIT_PRIVATE_KEY
